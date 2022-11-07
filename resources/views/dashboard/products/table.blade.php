@@ -1,34 +1,28 @@
 <div class="card-body p-0">
     <div class="table-responsive">
-        <table class="table" id="availabilities-table">
+        <table class="table" id="products-table">
             <thead>
             <tr>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Start Time Date</th>
-                <th>Start Time</th>
-                <th>End Time Date</th>
-                <th>End Time</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($availabilities as $availability)
+            @foreach($products as $product)
                 <tr>
-                    <td>{{ $availability->start_date }}</td>
-                    <td>{{ $availability->end_date }}</td>
-                    <td>{{ $availability->start_time_date }}</td>
-                    <td>{{ $availability->start_time }}</td>
-                    <td>{{ $availability->end_time_date }}</td>
-                    <td>{{ $availability->end_time }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td>{{ $product->price }}</td>
                     <td  style="width: 120px">
-                        {!! Form::open(['route' => ['availabilities.destroy', $availability->id], 'method' => 'delete']) !!}
+                        {!! Form::open(['route' => ['dashboard.products.destroy', $product->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
-                            <a href="{{ route('availabilities.show', [$availability->id]) }}"
+                            <a href="{{ route('dashboard.products.show', [$product->id]) }}"
                                class='btn btn-default btn-xs'>
                                 <i class="far fa-eye"></i>
                             </a>
-                            <a href="{{ route('availabilities.edit', [$availability->id]) }}"
+                            <a href="{{ route('dashboard.products.edit', [$product->id]) }}"
                                class='btn btn-default btn-xs'>
                                 <i class="far fa-edit"></i>
                             </a>
@@ -44,7 +38,7 @@
 
     <div class="card-footer clearfix">
         <div class="float-right">
-            @include('adminlte-templates::common.paginate', ['records' => $availabilities])
+            @include('adminlte-templates::common.paginate', ['records' => $products])
         </div>
     </div>
 </div>

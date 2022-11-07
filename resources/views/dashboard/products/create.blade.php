@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                        Edit Availability
+                    Create Products
                     </h1>
                 </div>
             </div>
@@ -19,17 +19,19 @@
 
         <div class="card">
 
-            {!! Form::model($availability, ['route' => ['availabilities.update', $availability->id], 'method' => 'patch']) !!}
+            {!! Form::open(['route' => 'dashboard.products.store']) !!}
 
             <div class="card-body">
+
                 <div class="row">
-                    @include('availabilities.fields')
+                    @include('dashboard.products.fields')
                 </div>
+
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('availabilities.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('dashboard.products.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

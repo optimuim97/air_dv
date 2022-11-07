@@ -6,12 +6,12 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                    @lang('models/availabilities.singular') @lang('crud.detail')
+                    @lang('models/products.singular') @lang('crud.detail')
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('availabilities.index') }}">
+                       href="{{ route('dashboard.products.index') }}">
                                                     @lang('crud.back')
                                             </a>
                 </div>
@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('availabilities.show_fields')
+                    @include('dashboard.products.show_fields')
                 </div>
             </div>
         </div>
