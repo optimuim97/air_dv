@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
 
     public function login(Request $request)
     {
@@ -24,7 +20,7 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        $token = Auth::attempt($credentials);
+        $token = auth('api')->attempt($credentials);        
 
         if (!$token) {
             return response()->json([
@@ -33,7 +29,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        $user = auth('api')->user();
 
         return response()->json([
                 'status' => 'success',
@@ -49,18 +45,27 @@ class AuthController extends Controller
     public function register(Request $request){
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'dial_code' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|confirmed|min:6',
+            'password_confirmation' => 'min:6'
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'name' => setFullname($request->firstname,$request->lastname),
             'email' => $request->email,
+            'dial_code' => $request->dial_code,
+            'phone_number' => $request->phone_number,
+            'phone' => setPhone($request->dial_code, $request->phone_number),
             'password' => Hash::make($request->password),
         ]);
 
-        $token = Auth::login($user);
+        $token = auth('api')->login($user);
 
         return response()->json([
             'status' => 'success',
@@ -73,9 +78,20 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
+    {
+        return response()->json(auth('api')->user());
+    }
+
+
     public function logout()
     {
-        Auth::logout();
+        auth('api')->logout();
 
         return response()->json([
             'status' => 'success',
@@ -87,11 +103,11 @@ class AuthController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
+            'user' => auth('api')->user(),
             'authorisation' => [
-                'token' => Auth::refresh(),
+                'token' => auth('api')->refresh(),
                 'type' => 'bearer',
             ]
         ]);
     }
-}   1`
+}   

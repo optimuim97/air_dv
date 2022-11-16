@@ -15,12 +15,17 @@ return new class extends Migration
     {
         Schema::create('availabilities', function (Blueprint $table) {
             $table->id();
+            $table->string("title")->nullable();
+            $table->text("description")->nullable();
+            $table->bigInteger("user_id");
             $table->string("start_date");
             $table->string("end_date");
             $table->dateTime("start_time_date");
             $table->string("start_time");
             $table->dateTime("end_time_date");
             $table->string("end_time");
+            $table->string("unique_code");
+            $table->boolean("is_schedule")->default(true);
             $table->timestamps();
         });
     }

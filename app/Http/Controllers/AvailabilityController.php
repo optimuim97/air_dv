@@ -26,7 +26,7 @@ class AvailabilityController extends AppBaseController
     {
         $availabilities = $this->availabilityRepository->paginate(10);
 
-        return view('availabilities.index')
+        return view('dashboard.availabilities.index')
             ->with('availabilities', $availabilities);
     }
 
@@ -35,7 +35,7 @@ class AvailabilityController extends AppBaseController
      */
     public function create()
     {
-        return view('availabilities.create');
+        return view('dashboard.availabilities.create');
     }
 
     /**
@@ -49,7 +49,7 @@ class AvailabilityController extends AppBaseController
 
         Flash::success('Availability saved successfully.');
 
-        return redirect(route('availabilities.index'));
+        return redirect(route('dashboard.availabilities.index'));
     }
 
     /**
@@ -62,10 +62,10 @@ class AvailabilityController extends AppBaseController
         if (empty($availability)) {
             Flash::error('Availability not found');
 
-            return redirect(route('availabilities.index'));
+            return redirect(route('dashboard.availabilities.index'));
         }
 
-        return view('availabilities.show')->with('availability', $availability);
+        return view('dashboard.availabilities.show')->with('availability', $availability);
     }
 
     /**
@@ -78,10 +78,10 @@ class AvailabilityController extends AppBaseController
         if (empty($availability)) {
             Flash::error('Availability not found');
 
-            return redirect(route('availabilities.index'));
+            return redirect(route('dashboard.availabilities.index'));
         }
 
-        return view('availabilities.edit')->with('availability', $availability);
+        return view('dashboard.availabilities.edit')->with('availability', $availability);
     }
 
     /**
@@ -94,14 +94,14 @@ class AvailabilityController extends AppBaseController
         if (empty($availability)) {
             Flash::error('Availability not found');
 
-            return redirect(route('availabilities.index'));
+            return redirect(route('dashboard.availabilities.index'));
         }
 
         $availability = $this->availabilityRepository->update($request->all(), $id);
 
         Flash::success('Availability updated successfully.');
 
-        return redirect(route('availabilities.index'));
+        return redirect(route('dashboard.availabilities.index'));
     }
 
     /**
@@ -116,13 +116,13 @@ class AvailabilityController extends AppBaseController
         if (empty($availability)) {
             Flash::error('Availability not found');
 
-            return redirect(route('availabilities.index'));
+            return redirect(route('dashboard.availabilities.index'));
         }
 
         $this->availabilityRepository->delete($id);
 
         Flash::success('Availability deleted successfully.');
 
-        return redirect(route('availabilities.index'));
+        return redirect(route('dashboard.availabilities.index'));
     }
 }

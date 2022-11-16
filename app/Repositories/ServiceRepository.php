@@ -8,7 +8,10 @@ use App\Repositories\BaseRepository;
 class ServiceRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        
+        'name',
+        'description',
+        'catalog_id',
+        'service_type_id'
     ];
 
     public function getFieldsSearchable(): array
